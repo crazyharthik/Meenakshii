@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E5E5E5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 375px;
+            max-width: 100%;
+            height: 667px;
+            max-height: 90vh;
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background-color: #028b90;
+            padding: 17px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .header .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .header .profile span {
+            font-weight: bold;
+            font-size: 16px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #fff;
+        }
+
+        .header .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header .icons i {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Messages */
+        .messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #FAFAFA;
+            background: url(theme-4.jpeg) no-repeat center;
+
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .message.received {
+            justify-content: flex-start;
+        }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message .bubble {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .message.received .bubble {
+            background-color: #E4E4E4;
+            color: #000;
+            border-radius: 0 10px 10px 10px;
+        }
+
+        .message.sent .bubble {
+            background-color: #D0ECE8;
+            color: #000;
+            border-radius: 10px 0 10px 10px;
+            color: #007665;
+        }
+
+        .message.audio {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .audio-player {
+            background-color: #D1F7C4;
+            border-radius: 10px;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .audio-player button {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #FFFFFF;
+            border-top: 1px solid #E0E0E0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #E0E0E0;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+
+        .footer button {
+            background-color: #34C759;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #FFFFFF;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .audio-player {
+            background-color: #C4F1E3;
+            border-radius: 30px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .audio-player::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 30px;
+            background: url(Group\ 10.svg) no-repeat center;
+            background-size: cover;
+        }
+
+        .audio-player button {
+            border: none;
+            background: #FFFFFF;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .audio-player span {
+            font-size: 10px;
+            font-weight: bold;
+            color: #00796B;
+        }
+
+        .today-text-content {
+            color: #ffffff;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .active-status span {
+            font-size: 10px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .active-status .indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #55A99D;
+            border-radius: 50%;
+        }
+
+        .mic-button {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #0FB8AD, #0A7B75);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        .mic-button img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .conform-content {
+            background-color: #007665;
+            color: white;
+            text-decoration: none;
+            border-radius: 32px;
+            width: 60px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .no-button {
+            background-color: #D0ECE8 !important;
+            border-radius: 32px;
+            width: 60px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+
+        .inline-video-popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 300px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 10;
+            display: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .inline-video-popup video {
+            border-radius: 8px;
+            width: 300px;
+            height: 200px;
+            max-width: 100%;
+            height: 51vh;
+        }
+
+
+        .close-video-popup {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #007665;
+            color: #FFF;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 11;
+        }
+
+        .purticluar-img {
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .chat-header-r {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+
+        }
+
+        .message.received {
+            animation: slideInRight 0.5s ease-out forwards;
+            opacity: 0;
+            /* Start invisible */
+        }
+
+        /* Keyframes for Slide-In Animation */
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100%);
+                /* Start off-screen (right) */
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                /* End in place */
+                opacity: 1;
+            }
+        }
+
+        /* Animation for Messages (Right to Left) */
+        .message {
+            opacity: 0;
+            /* Start invisible */
+            animation: slideInRight 0.5s ease-out forwards;
+        }
+
+        /* Keyframes for Slide-In Animation */
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100%);
+                /* Start off-screen (right) */
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                /* End in place */
+                opacity: 1;
+            }
+        }
+
+        /* Optional: Stagger Animation for Multiple Messages */
+        .message.sent:nth-child(1),
+        .message.received:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .message.sent:nth-child(2),
+        .message.received:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .message.sent:nth-child(3),
+        .message.received:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+
+        .messages::-webkit-scrollbar {
+            display: none !important;
+        }
+
+        .messages {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+
+
+
+
+
+
+        /* Typing Animation */
+        .typing-animation {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Animation for Dots */
+        .typing-animation span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #007665;
+            border-radius: 50%;
+            animation: typing 1.5s infinite ease-in-out;
+        }
+
+        /* Delay for each dot */
+        .typing-animation span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-animation span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-animation span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Keyframes for Dots */
+        @keyframes typing {
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            40% {
+                transform: translateY(-5px);
+                opacity: 0.5;
+            }
+        }
+
+
+        .video-popup-content {
+            position: absolute;
+            bottom: 43px;
+            /* top: 5px; */
+            /* right: 50%;
+            left: 50%; */
+            /* top: 50%; */
+            /* background: #007665; */
+               /* border: none; */
+            /* border-radius: 50%; */
+            /* width: 25px; */
+            /* height: 25px; */
+            color: #FFF;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 11;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chat-header-r">
+        <div class="chat-container">
+            <div class="header">
+                <div class="profile d-flex">
+                    <img src="/home/nsroot/Downloads/saravanan-html (1)/saravanan-html/464524146_489723244068775_2425967493337224337_n.jpg" alt="Profile">
+                    <div>
+                        <span> കെന്നഡി</span>
+                        <div class="active-status d-flex align-items-center gap-1">
+                            <span style="font-size: 12px;">saravanan_kennady</span>
+                        </div>
+                        <div class="active-status d-flex align-items-center gap-1">
+                            <span style="font-size: 12px;">Active Now</span>
+                            <div class="indicator"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="icons">
+                    <button class="border-0 bg-transparent"><img src="Vector (14).svg" alt=""></button>
+                    <button class="border-0 bg-transparent"><img src="Vector (13).svg" alt=""></button>
+                </div>
+            </div>
+
+            <div class="messages" id="messages">
+                <p class="today-text-content mt-2 mb-4">Today</p>
+                <div class="message sent">
+                    <div class="bubble">Meenakshi, I’ve tried so hard to impress you, but I don’t know if it’s working. 😊</div>
+                </div>
+                
+
+                
+                <div class="message sent">
+                    <div class="bubble">You might think I’m like this with others, and honestly, I’ve flirted before, but I never crossed a line when someone was committed. 🤞</div>
+                </div>
+                
+
+                
+                <div class="message sent">
+                    <div class="bubble">Since I knew you were single, you’ve been in my thoughts day and night, and I can’t imagining a life without you. 💕</div>
+                </div>
+                
+
+                
+                <div class="message sent">
+                    <div class="bubble">I know online and long-distance relationships aren’t easy, but I promise a life full of love, little fights, and big dreams. 🌍💑✨</div>
+                </div>
+                
+
+                
+                <div class="message sent">
+                    <div class="bubble">This is my first love, and I truly hope it’s forever. ❤️</div>
+                </div>
+                
+
+                
+                <div class="message sent">
+                    <div class="bubble">Will you say yes?💍🧎‍♂️</div>
+                </div>
+                
+                
+                <div class="message received d-flex align-items-end gap-2">
+                    <img class="purticluar-img" style="width: 25px;height: 25px;" src="470472094_474853745232719_1085609301516063888_n.jpg" alt="">
+                    <div class="bubble">
+                        <div class="typing-animation">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="tenor-gif-embed w-25 h-25" data-postid="24188271" data-width="100%">
+                </div>
+
+
+                <div class="d-flex align-items-center gap-2 justify-content-center">
+                    <a class="conform-content" href="index-1.html">Yes</a>
+                    <button class="no-button" id="showPopup">No</button>
+                </div>
+                
+                <!-- Inline Video Popup -->
+                <div class="inline-video-popup" id="inlineVideoPopup" style="display: none;">
+                    <button class="close-video-popup" id="closePopup">×</button>
+                    <video id="popupVideo" controls autoplay>
+                        <source src="🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                
+                    <div class="position-relative video-popup-content">
+                        <div class="d-flex align-items-center gap-2 justify-content-center">
+                            <a class="conform-content" href="index-1.html" >Yes</a>
+                            <button class="no-button" id="nextVideo">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <input type="text" placeholder="Send Message">
+                <button class="mic-button">
+                    <img style="width: 17px;height: 17px;" src="send.svg" alt="Microphone Icon">
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!--=================================================== script-start =======================================================-->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const showPopupBtn = document.getElementById('showPopup');
+            const closePopupBtn = document.getElementById('closePopup');
+            const inlineVideoPopup = document.getElementById('inlineVideoPopup');
+            const popupVideo = document.getElementById('popupVideo');
+
+            // Show Video Popup
+            showPopupBtn.addEventListener('click', () => {
+                inlineVideoPopup.style.display = 'block';
+                popupVideo.play();
+            });
+
+            // Close Video Popup
+            closePopupBtn.addEventListener('click', () => {
+                inlineVideoPopup.style.display = 'none';
+                popupVideo.pause();
+                popupVideo.currentTime = 0;
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const receivedMessages = document.querySelectorAll('.message.received');
+
+            receivedMessages.forEach((message, index) => {
+                message.style.animationDelay = `${index * 0.3}s`; // Stagger animations for each message
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const messages = document.querySelectorAll('.message');
+
+            messages.forEach((message, index) => {
+                message.style.animationDelay = `${index * 0.2}s`; // Add delay for each message
+            });
+        });
+
+
+    </script>
+
+<script>
+    // Video sources array
+    const videoList = [
+        '🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4',
+        'kana pona kadhala song 💞 whatsappstatus 🧡 blackscreen ✨☁️.mp4',
+        'engiruntho vantha alage💕 _ song whatsapp status _ nenjukulla nee song _ vadacurry _ kadhal cutz.mp4',
+        '🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4',
+        '🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4'
+    ];
+
+    let currentVideoIndex = 0; // Track current video
+    const videoPopup = document.getElementById('inlineVideoPopup');
+    const videoElement = document.getElementById('popupVideo');
+    const nextButton = document.getElementById('nextVideo');
+    const closePopupButton = document.getElementById('closePopup');
+    const showPopupButton = document.getElementById('showPopup');
+
+    // Function to play the next video
+    function playNextVideo() {
+        currentVideoIndex++;
+        if (currentVideoIndex < videoList.length) {
+            videoElement.src = videoList[currentVideoIndex];
+            videoElement.play();
+        } else {
+            // Optional: Restart from the first video or close the popup
+            currentVideoIndex = 0;
+            videoPopup.style.display = 'none';
+        }
+    }
+
+    // Event listener for the "No" button
+    nextButton.addEventListener('click', playNextVideo);
+
+    // Event listener for video ended
+    videoElement.addEventListener('ended', playNextVideo);
+
+    // Show popup when "No" is clicked initially
+    showPopupButton.addEventListener('click', () => {
+        videoPopup.style.display = 'block';
+        videoElement.src = videoList[currentVideoIndex];
+        videoElement.play();
+    });
+
+    // Close popup functionality
+    closePopupButton.addEventListener('click', () => {
+        videoPopup.style.display = 'none';
+        videoElement.pause();
+    });
+</script>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+
+    <!--=================================================== script-end =======================================================-->
+
+</body>
+
+</html>
