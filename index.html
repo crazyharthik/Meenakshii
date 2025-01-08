@@ -543,7 +543,7 @@
                 <div class="inline-video-popup" id="inlineVideoPopup" style="display: none;">
                     <button class="close-video-popup" id="closePopup">×</button>
                     <video id="popupVideo" controls autoplay>
-                        <source src="🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4" type="video/mp4">
+                        <source src="videoplayback.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
 
@@ -587,15 +587,15 @@
             showPopupBtn.addEventListener('click', () => {
                 inlineVideoPopup.style.display = 'block';
                 popupVideo.play();
-                buttonContainer.style.display = 'block'; // Hide buttons when popup is displayed
+                buttonContainer.style.display = 'none'; // Hide buttons when popup is displayed
             });
 
             // Close Video Popup
             closePopupBtn.addEventListener('click', () => {
-                inlineVideoPopup.style.display = 'block';
+                inlineVideoPopup.style.display = 'none';
                 popupVideo.pause();
                 popupVideo.currentTime = 0;
-                buttonContainer.style.display = 'block'; // Show buttons again when popup is closed
+                buttonContainer.style.display = 'none'; // Show buttons again when popup is closed
             });
         });
 
@@ -622,7 +622,6 @@
             'kana pona kadhala song 💞 whatsappstatus 🧡 blackscreen ✨☁️.mp4',
             'engiruntho vantha alage💕 _ song whatsapp status _ nenjukulla nee song _ vadacurry _ kadhal cutz.mp4',
             'videoplayback.mp4',
-            '🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4'
         ];
 
         let currentVideoIndex = 0; // Track current video
@@ -656,7 +655,7 @@
             videoPopup.style.display = 'block';
             videoElement.src = videoList[currentVideoIndex];
             videoElement.play();
-            buttonContainer.style.display = 'block'; // Hide buttons when popup is displayed
+            buttonContainer.style.display = 'none'; // Hide buttons when popup is displayed
         });
 
         // Close popup functionality
