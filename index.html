@@ -602,25 +602,19 @@
                 const inlineVideoPopup = document.getElementById('inlineVideoPopup');
                 const popupVideo = document.getElementById('popupVideo');
         
-                // Show Video Popup
+                // Show Video Popup and Hide Buttons
                 showPopupBtn.addEventListener('click', () => {
                     inlineVideoPopup.style.display = 'block'; // Show popup
                     buttonContainer.style.display = 'none'; // Hide buttons
-                    popupVideo.play();
+                    popupVideo.play(); // Start video playback
                 });
         
-                // Close Video Popup
+                // Close Video Popup and Show Buttons
                 closePopupBtn.addEventListener('click', () => {
                     inlineVideoPopup.style.display = 'none'; // Hide popup
                     buttonContainer.style.display = 'flex'; // Show buttons
-                    popupVideo.pause();
-                    popupVideo.currentTime = 0;
-                });
-        
-                // Optional: Automatically close popup after video ends
-                popupVideo.addEventListener('ended', () => {
-                    inlineVideoPopup.style.display = 'none';
-                    buttonContainer.style.display = 'flex';
+                    popupVideo.pause(); // Pause video
+                    popupVideo.currentTime = 0; // Reset video
                 });
             });
         </script>
