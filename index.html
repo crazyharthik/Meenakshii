@@ -471,6 +471,7 @@
 </head>
 
 <body>
+
     <div class="chat-header-r">
         <div class="chat-container">
             <div class="header">
@@ -498,21 +499,27 @@
                 <div class="message sent">
                     <div class="bubble">Meenakshi, I’ve tried so hard to impress you, but I don’t know if it’s working. 😊</div>
                 </div>
+                
                 <div class="message sent">
                     <div class="bubble">You might think I’m like this with others, and honestly, I’ve flirted before, but I never crossed a line when someone was committed. 🤞</div>
                 </div>
+
                 <div class="message sent">
                     <div class="bubble">Since I knew you were single, you’ve been in my thoughts day and night, and I can’t imagining a life without you. 💕</div>
                 </div>
+
                 <div class="message sent">
                     <div class="bubble">I know online and long-distance relationships aren’t easy, but I promise a life full of love, little fights, and big dreams. 🌍💑✨</div>
                 </div>
+
                 <div class="message sent">
                     <div class="bubble">This is my first love, and I truly hope it’s forever. ❤️</div>
                 </div>
+
                 <div class="message sent">
                     <div class="bubble">Will you say yes?💍🧎‍♂️</div>
                 </div>
+
                 <div class="message received d-flex align-items-end gap-2">
                     <img class="purticluar-img" style="width: 25px;height: 25px;" src="470472094_474853745232719_1085609301516063888_n.jpg" alt="">
                     <div class="bubble">
@@ -523,26 +530,32 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="tenor-gif-embed w-25 h-25" data-postid="24188271" data-width="100%">
                 </div>
+
                 <div class="d-flex align-items-center gap-2 justify-content-center" id="buttonContainer">
                     <a class="conform-content" href="index-1.html">Yes</a>
                     <button class="no-button" id="showPopup">No</button>
                 </div>
+
+                <!-- Inline Video Popup -->
                 <div class="inline-video-popup" id="inlineVideoPopup" style="display: none;">
                     <button class="close-video-popup" id="closePopup">×</button>
                     <video id="popupVideo" controls autoplay>
-                        <source src="video1.mp4" type="video/mp4">
+                        <source src="🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+
                     <div class="position-relative video-popup-content">
-                        <div class="d-flex align-items-center gap-2 justify-content-center">
+                        <div class="d-flex align-items-center gap-2 justify-content-center" id="popupButtons">
                             <a class="conform-content" href="index-1.html">Yes</a>
                             <button class="no-button" id="nextVideo">No</button>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="footer">
                 <input type="text" placeholder="Send Message">
                 <button class="mic-button">
@@ -552,22 +565,53 @@
         </div>
     </div>
 
+    <!--=================================================== script-start =======================================================-->
+
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const showPopupBtn = document.getElementById('showPopup');
+            const closePopupBtn = document.getElementById('closePopup');
+            const inlineVideoPopup = document.getElementById('inlineVideoPopup');
+            const popupVideo = document.getElementById('popupVideo');
+            const buttonContainer = document.getElementById('buttonContainer');
+
+            // Show Video Popup
+            showPopupBtn.addEventListener('click', () => {
+                inlineVideoPopup.style.display = 'block';
+                popupVideo.play();
+                buttonContainer.style.display = 'none'; // Hide buttons when popup opens
+            });
+
+            // Close Video Popup
+            closePopupBtn.addEventListener('click', () => {
+                inlineVideoPopup.style.display = 'none';
+                popupVideo.pause();
+                popupVideo.currentTime = 0;
+                buttonContainer.style.display = 'flex'; // Show buttons again when popup closes
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const messages = document.querySelectorAll('.message');
+
+            messages.forEach((message, index) => {
+                message.style.animationDelay = `${index * 0.2}s`; // Add delay for each message
+            });
+        });
+
         // Video sources array
         const videoList = [
             '🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4',
             'kana pona kadhala song 💞 whatsappstatus 🧡 blackscreen ✨☁️.mp4',
             'engiruntho vantha alage💕 _ song whatsapp status _ nenjukulla nee song _ vadacurry _ kadhal cutz.mp4',
-            'videoplayback.mp4'
+            'videoplayback.mp4',
+            '🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4'
         ];
 
         let currentVideoIndex = 0; // Track current video
         const videoPopup = document.getElementById('inlineVideoPopup');
         const videoElement = document.getElementById('popupVideo');
         const nextButton = document.getElementById('nextVideo');
-        const closePopupButton = document.getElementById('closePopup');
-        const showPopupButton = document.getElementById('showPopup');
-        const buttonContainer = document.getElementById('buttonContainer');
 
         // Function to play the next video
         function playNextVideo() {
@@ -576,32 +620,22 @@
                 videoElement.src = videoList[currentVideoIndex];
                 videoElement.play();
             } else {
-                closePopup(); // Close popup when all videos are played
+                // Restart from the first video or close the popup
+                currentVideoIndex = 0;
+                videoPopup.style.display = 'none';
             }
         }
 
-        // Show video popup
-        function showPopup() {
-            videoPopup.style.display = 'block';
-            buttonContainer.style.display = 'none'; // Hide the buttons
-            videoElement.src = videoList[currentVideoIndex];
-            videoElement.play();
-        }
-
-        // Close video popup
-        function closePopup() {
-            videoPopup.style.display = 'none';
-            buttonContainer.style.display = 'flex'; // Show the buttons
-            videoElement.pause();
-            videoElement.currentTime = 0; // Reset video time
-        }
-
-        // Event listeners
-        showPopupButton.addEventListener('click', showPopup);
-        closePopupButton.addEventListener('click', closePopup);
+        // Event listener for the "No" button inside the popup
         nextButton.addEventListener('click', playNextVideo);
+
+        // Event listener for video ended
         videoElement.addEventListener('ended', playNextVideo);
     </script>
+
+    <!--=================================================== script-end =======================================================-->
+
 </body>
+
 
 </html>
