@@ -547,7 +547,7 @@
                 </div>
 
 
-                <div class="d-flex align-items-center gap-2 justify-content-center">
+                <div class="d-flex align-items-center gap-2 justify-content-center" id="buttonContainer">
                     <a class="conform-content" href="index-1.html">Yes</a>
                     <button class="no-button" id="showPopup">No</button>
                 </div>
@@ -556,10 +556,9 @@
                 <div class="inline-video-popup" id="inlineVideoPopup" style="display: none;">
                     <button class="close-video-popup" id="closePopup">×</button>
                     <video id="popupVideo" controls autoplay>
-                        <source src="🦋🌈𝐎𝐑𝐔 𝐕𝐀𝐀𝐓𝐈 𝐎𝐊 𝐒𝐎𝐋𝐋𝐈 𝐏𝐀𝐀𝐑𝐄𝐍👀 𝐑𝐄𝐌𝐎 𝐒𝐎𝐍𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐒𝐓𝐀𝐓𝐔𝐒 ♥️.mp4" type="video/mp4">
+                        <source src="video1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                
                     <div class="position-relative video-popup-content">
                         <div class="d-flex align-items-center gap-2 justify-content-center">
                             <a class="conform-content" href="index-1.html">Yes</a>
@@ -595,7 +594,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const showPopupBtn = document.getElementById('showPopup');
+                const closePopupBtn = document.getElementById('closePopup');
+                const buttonContainer = document.getElementById('buttonContainer');
+                const inlineVideoPopup = document.getElementById('inlineVideoPopup');
+                const popupVideo = document.getElementById('popupVideo');
+        
+                // Show Video Popup
+                showPopupBtn.addEventListener('click', () => {
+                    inlineVideoPopup.style.display = 'block'; // Show popup
+                    buttonContainer.style.display = 'none'; // Hide buttons
+                    popupVideo.play();
+                });
+        
+                // Close Video Popup
+                closePopupBtn.addEventListener('click', () => {
+                    inlineVideoPopup.style.display = 'none'; // Hide popup
+                    buttonContainer.style.display = 'flex'; // Show buttons
+                    popupVideo.pause();
+                    popupVideo.currentTime = 0;
+                });
+        
+                // Optional: Automatically close popup after video ends
+                popupVideo.addEventListener('ended', () => {
+                    inlineVideoPopup.style.display = 'none';
+                    buttonContainer.style.display = 'flex';
+                });
+            });
+        </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -661,37 +689,30 @@
             videoElement.src = videoList[currentVideoIndex];
             videoElement.play();
         } else {
-            currentVideoIndex = 0; // Optional: Restart from the first video
-            closePopup();
+            // Optional: Restart from the first video or close the popup
+            currentVideoIndex = 0;
+            videoPopup.style.display = 'none';
         }
     }
 
-    // Show popup and hide "No" button
-    function showPopup() {
-        videoPopup.style.display = 'block';
-        videoElement.src = videoList[currentVideoIndex];
-        videoElement.play();
-        showPopupButton.style.display = 'none'; // Hide the "No" button
-    }
-
-    // Close popup and show "No" button
-    function closePopup() {
-        videoPopup.style.display = 'none';
-        videoElement.pause();
-        showPopupButton.style.display = 'inline-block'; // Show the "No" button
-    }
-
-    // Event listener for the "No" button to show popup
-    showPopupButton.addEventListener('click', showPopup);
-
-    // Event listener for the close button to close popup
-    closePopupButton.addEventListener('click', closePopup);
-
-    // Event listener for the "No" button inside the popup
+    // Event listener for the "No" button
     nextButton.addEventListener('click', playNextVideo);
 
     // Event listener for video ended
     videoElement.addEventListener('ended', playNextVideo);
+
+    // Show popup when "No" is clicked initially
+    showPopupButton.addEventListener('click', () => {
+        videoPopup.style.display = 'block';
+        videoElement.src = videoList[currentVideoIndex];
+        videoElement.play();
+    });
+
+    // Close popup functionality
+    closePopupButton.addEventListener('click', () => {
+        videoPopup.style.display = 'none';
+        videoElement.pause();
+    });
 </script>
     <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
