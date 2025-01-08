@@ -587,15 +587,15 @@
             showPopupBtn.addEventListener('click', () => {
                 inlineVideoPopup.style.display = 'block';
                 popupVideo.play();
-                buttonContainer.style.display = 'none'; // Hide buttons when popup is displayed
+                buttonContainer.style.display = 'block'; // Hide buttons when popup is displayed
             });
 
             // Close Video Popup
             closePopupBtn.addEventListener('click', () => {
-                inlineVideoPopup.style.display = 'none';
+                inlineVideoPopup.style.display = 'block';
                 popupVideo.pause();
                 popupVideo.currentTime = 0;
-                buttonContainer.style.display = 'none'; // Show buttons again when popup is closed
+                buttonContainer.style.display = 'block'; // Show buttons again when popup is closed
             });
         });
 
@@ -656,7 +656,7 @@
             videoPopup.style.display = 'block';
             videoElement.src = videoList[currentVideoIndex];
             videoElement.play();
-            buttonContainer.style.display = 'none'; // Hide buttons when popup is displayed
+            buttonContainer.style.display = 'block'; // Hide buttons when popup is displayed
         });
 
         // Close popup functionality
