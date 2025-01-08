@@ -595,7 +595,7 @@
                 inlineVideoPopup.style.display = 'none';
                 popupVideo.pause();
                 popupVideo.currentTime = 0;
-                buttonContainer.style.display = 'flex'; // Show buttons again when popup is closed
+                buttonContainer.style.display = 'none'; // Show buttons again when popup is closed
             });
         });
 
@@ -631,7 +631,7 @@
         const nextButton = document.getElementById('nextVideo');
         const closePopupButton = document.getElementById('closePopup');
         const showPopupButton = document.getElementById('showPopup');
-
+        const buttonContainer = document.getElementById('buttonContainer');
         // Function to play the next video
         function playNextVideo() {
             currentVideoIndex++;
