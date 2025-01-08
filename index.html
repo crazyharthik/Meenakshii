@@ -562,7 +562,7 @@
                 
                     <div class="position-relative video-popup-content">
                         <div class="d-flex align-items-center gap-2 justify-content-center">
-                            <a class="conform-content" href="index-1.html" >Yes</a>
+                            <a class="conform-content" href="index-1.html">Yes</a>
                             <button class="no-button" id="nextVideo">No</button>
                         </div>
                     </div>
@@ -661,30 +661,37 @@
             videoElement.src = videoList[currentVideoIndex];
             videoElement.play();
         } else {
-            // Optional: Restart from the first video or close the popup
-            currentVideoIndex = 0;
-            videoPopup.style.display = 'none';
+            currentVideoIndex = 0; // Optional: Restart from the first video
+            closePopup();
         }
     }
 
-    // Event listener for the "No" button
+    // Show popup and hide "No" button
+    function showPopup() {
+        videoPopup.style.display = 'block';
+        videoElement.src = videoList[currentVideoIndex];
+        videoElement.play();
+        showPopupButton.style.display = 'none'; // Hide the "No" button
+    }
+
+    // Close popup and show "No" button
+    function closePopup() {
+        videoPopup.style.display = 'none';
+        videoElement.pause();
+        showPopupButton.style.display = 'inline-block'; // Show the "No" button
+    }
+
+    // Event listener for the "No" button to show popup
+    showPopupButton.addEventListener('click', showPopup);
+
+    // Event listener for the close button to close popup
+    closePopupButton.addEventListener('click', closePopup);
+
+    // Event listener for the "No" button inside the popup
     nextButton.addEventListener('click', playNextVideo);
 
     // Event listener for video ended
     videoElement.addEventListener('ended', playNextVideo);
-
-    // Show popup when "No" is clicked initially
-    showPopupButton.addEventListener('click', () => {
-        videoPopup.style.display = 'block';
-        videoElement.src = videoList[currentVideoIndex];
-        videoElement.play();
-    });
-
-    // Close popup functionality
-    closePopupButton.addEventListener('click', () => {
-        videoPopup.style.display = 'none';
-        videoElement.pause();
-    });
 </script>
     <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
